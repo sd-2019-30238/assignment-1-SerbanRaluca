@@ -1,4 +1,4 @@
-package connection;
+package dataAccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,7 +36,9 @@ public class ConnectionFactory {
 	private Connection createConnection() {
 		Connection connection = null;
 		try {
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 			connection = DriverManager.getConnection(DBURL, USER, PASS);
+		    //System.out.println(connection);
 		} catch (SQLException e) {
 			LOGGER.log(Level.WARNING, "An error occured while trying to connect to the database");
 			e.printStackTrace();
