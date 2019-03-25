@@ -30,16 +30,19 @@ public class LoginDAO {
 			while(rs.next()) {
 				String uname=rs.getString("username");
 				String pass=rs.getString("password");
-				if(uname.equalsIgnoreCase(username) && pass.equalsIgnoreCase(password)) {
-					return "success";
-				}
-				//return "error";
+				String role=rs.getString("role");
+				if(uname.equals(username) && pass.equals(password) && role.equals("Admin"))
+					 return "Admin_Role";
+					 else if(uname.equals(username) && pass.equals(password) && role.equals("Staff"))
+					 return "Staff_Role";
+					 else if(uname.equals(username) && password.equals(password) && role.equals("User"))
+					 return "User_Role";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "error";
+		return "Invalid user credentials!";
 			
 	}
 }

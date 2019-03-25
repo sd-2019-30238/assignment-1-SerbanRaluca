@@ -2,7 +2,6 @@ package businessLogic.beans;
 
 public class User {
 	
-    private static int id=0;
 	private String first_name;
 	private String last_name;
 	private String email;
@@ -23,7 +22,6 @@ public class User {
 		this.last_name=last;
 		this.address=address;
 		this.number=number;
-		id++;
 	}
 	
 	public String getUserName() {
@@ -31,10 +29,6 @@ public class User {
 	}
 	public void setUserName(String name) {
 		this.username = name;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 

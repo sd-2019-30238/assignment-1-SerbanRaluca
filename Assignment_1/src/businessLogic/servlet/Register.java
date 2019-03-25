@@ -1,4 +1,4 @@
-package businessLogic;
+package businessLogic.servlet;
 
 import java.io.IOException;
 
@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.UserDAO;
-import dataAccess.AbstractDAO;
+import businessLogic.RegisterDAO;
 import businessLogic.beans.*;
 
 /**
@@ -19,14 +18,14 @@ import businessLogic.beans.*;
 @WebServlet(urlPatterns = { "/register"})
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Register() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Register() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,9 +34,9 @@ public class Register extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/register1.jsp");
- 
-        dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/register1.jsp");
+
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -51,18 +50,19 @@ public class Register extends HttpServlet {
 		String password = request.getParameter("password");
 		String address = request.getParameter("address");
 		String contact = request.getParameter("contact");
-		
-		if(first_name.isEmpty() || last_name.isEmpty() || username.isEmpty() || password.isEmpty() || address.isEmpty() || contact.isEmpty()){
-			RequestDispatcher req = request.getServletContext().getRequestDispatcher("/register1.jsp");
-			req.forward(request, response);
-			  //response.sendRedirect(request.getContextPath() + "/register");
-		}else{
-			RequestDispatcher req = request.getServletContext().getRequestDispatcher("/register2.jsp");
-			req.forward(request, response);
-			User user=new User(first_name,last_name,email,username,password,address,contact);
-			AbstractDAO<User> userDao=new UserDAO();
-			userDao.insert(user);
+
+		User user=new User(first_name,last_name,email,username,password,address,contact);
+		RegisterDAO registerDao=new RegisterDAO();
+		String userRegistered=registerDao.registerUser(user);
+		if(userRegistered.equals("SUCCESS"))   //On success, you can display a message to user on Home page
+		{
+			request.getRequestDispatcher("/Welcome.jsp").forward(request, response);
+		}
+		else   //On Failure, display a meaningful message to the User.
+		{
+			request.setAttribute("errMessage", userRegistered);
+			request.getRequestDispatcher("/register1.jsp").forward(request, response);
 		}
 	}
-		
+
 }

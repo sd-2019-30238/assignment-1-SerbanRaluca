@@ -1,4 +1,4 @@
-package businessLogic;
+package businessLogic.servlet;
  
 import java.io.IOException;
  

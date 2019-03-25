@@ -4,10 +4,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Login Page</title>
+<script> 
+function validate()
+{ 
+ var username = document.form.username.value; 
+ var password = document.form.password.value;
+ 
+ if (username==null || username=="")
+ { 
+ alert("Username cannot be blank"); 
+ return false; 
+ }
+ else if(password==null || password=="")
+ { 
+ alert("Password cannot be blank"); 
+ return false; 
+ } 
+}
+</script> 
 </head>
 <body>
-
+ 
 	<form method="post" action="Login">
 		<table>
 			<tr>
@@ -19,8 +37,17 @@
 				<td><input type="password" name="password"></td>
 			</tr>
 			<tr>
+				<td><span style="color: red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></span></td>
+			</tr>
+			
+			<tr>
+               <td>Remember me</td>
+               <td><input type="checkbox" name="rememberMe" value= "Y" /> </td>
+            </tr>
+			
+			<tr>
 				<td></td>
-				<td><input type="submit" value="login"></td>
+				<td><input type="submit" value="Login"><input type="reset" value="Reset"></td>
 			</tr>
 		</table>
 
