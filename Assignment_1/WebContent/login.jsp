@@ -24,10 +24,10 @@ function validate()
 }
 </script> 
 </head>
-<body>
+<body bgcolor=#99FF99>
  
-	<form method="post" action="Login">
-		<table>
+	<form  method="post" action="Login">
+		<table align="center">
 			<tr>
 				<td>Username:</td>
 				<td><input type="text" name="username"></td>

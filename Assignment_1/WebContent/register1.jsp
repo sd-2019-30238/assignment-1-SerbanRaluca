@@ -36,7 +36,7 @@
 	}
 </script>
 </head>
-<body>
+<body bgcolor=#99FF99>
 	<center><h1>New User Registration</h1></center>
 	<form name="form" action="Register" method="post"
 		onsubmit="return validate()">

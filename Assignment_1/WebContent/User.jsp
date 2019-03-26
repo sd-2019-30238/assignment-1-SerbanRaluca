@@ -12,7 +12,7 @@
 <%
 	}
 %>
-<body>
+<body  bgcolor=#99FF99>
 	<%
 		if (session.getAttribute("User") == null) {
 			response.sendRedirect("login.jsp");
@@ -21,8 +21,14 @@
 	<center>
 		<h2>User's Home</h2>
 	</center>
+	Login Successful!<br>
 	Welcome
-	<%=request.getAttribute("userName")%>
+	<%=request.getAttribute("userName")%>!
+	
+	
+	<div style="text-align: left">
+		<a href="<%=request.getContextPath()%>/home">Continue shopping</a>
+	</div>
 
 	<div style="text-align: right">
 		<a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a>

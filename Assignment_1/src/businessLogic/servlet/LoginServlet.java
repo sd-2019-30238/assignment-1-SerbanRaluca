@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet {
              MyUtils.deleteUserCookie(response);
          }
 		 
-		 request.getRequestDispatcher("/Editor.jsp").forward(request, response);
+		 request.getRequestDispatcher("/Staff.jsp").forward(request, response);
 		 }
 		 else if(validate.equals("User_Role"))
 		 {
