@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Error</title>
+<title>Empty Cart</title>
 </head>
-<body  bgcolor=#99FF99>
-<div align="center">
-You are already logged in! <br> <a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a>
-</div>
+<body bgcolor=#99FF99>
+<H1> Empty Cart </H1>
+Your shopping cart is empty.
+<p>
+<form method=get action="productPage.jsp"> 
+</form>
+</p>
 </body>
 </html>

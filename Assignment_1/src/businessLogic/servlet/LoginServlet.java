@@ -26,10 +26,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Forward to /WEB-INF/views/loginView.jsp
-		// (Users can not access directly into JSP pages placed in WEB-INF)
-		RequestDispatcher dispatcher //
-		= this.getServletContext().getRequestDispatcher("/login.jsp");
+		RequestDispatcher dispatcher= this.getServletContext().getRequestDispatcher("/login.jsp");
 
 		dispatcher.forward(request, response);
 
@@ -115,7 +112,6 @@ public class LoginServlet extends HttpServlet {
 		 {
 		 System.out.println("Error message = "+validate);
 		 request.setAttribute("errMessage", validate);
-		 
 		 request.getRequestDispatcher("/login.jsp").forward(request, response);
 		 }
 	}

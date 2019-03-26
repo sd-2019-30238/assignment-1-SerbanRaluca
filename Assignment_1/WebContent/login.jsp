@@ -22,11 +22,17 @@ function validate()
  return false; 
  } 
 }
-</script> 
+</script>
 </head>
 <body bgcolor=#99FF99>
- 
-	<form  method="post" action="Login">
+
+	<%
+		if (session.getAttribute("User") != null) {
+			response.sendRedirect("error.jsp");
+		}
+	%>
+
+	<form method="post" action="Login">
 		<table align="center">
 			<tr>
 				<td>Username:</td>
@@ -39,15 +45,16 @@ function validate()
 			<tr>
 				<td><span style="color: red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></span></td>
 			</tr>
-			
+
 			<tr>
-               <td>Remember me</td>
-               <td><input type="checkbox" name="rememberMe" value= "Y" /> </td>
-            </tr>
-			
+				<td>Remember me</td>
+				<td><input type="checkbox" name="rememberMe" value="Y" /></td>
+			</tr>
+
 			<tr>
 				<td></td>
-				<td><input type="submit" value="Login"><input type="reset" value="Reset"></td>
+				<td><input type="submit" value="Login"><input
+					type="reset" value="Reset"></td>
 			</tr>
 		</table>
 

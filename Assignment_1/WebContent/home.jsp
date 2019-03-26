@@ -163,7 +163,8 @@ to {
 				</a> <a href="${pageContext.request.contextPath}/login" class="but6">Login
 				</a> <a href="${pageContext.request.contextPath}/register" class="but6">Register
 				</a> <a href="${pageContext.request.contextPath}/LogoutServlet"
-					class="but6">Log out </a>
+					class="but6">Log out </a><a href="${pageContext.request.contextPath}/cart"
+					class="but6">My cart </a>
 			</div>
 		</div>
 	</div>
@@ -175,11 +176,12 @@ to {
 					<img src="images/title1.gif" alt="" width="174" height="30" /> <br></br>
 
 					<ul id="list">
-						<li class="color"><a href="#">OFFICE</a></li>
-						<li class="color"><a href="#">Tables</a></li>
-						<li><a href="#">OUTDOOR</a></li>
-						<li class="color"><a href="#">BATHROOM</a></li>
-						<li><a href="#">KITCHEN</a></li>
+					     <li class="color"><a href="${pageContext.request.contextPath}/product" >All products</a></li>
+						<li class="color"><a href="${pageContext.request.contextPath}/Category1Servlet">Sofas and armchairs</a></li>
+						<li class="color"><a href="${pageContext.request.contextPath}/Category2Servlet">Tables and chairs</a></li>
+						<li><a href="${pageContext.request.contextPath}/Category3Servlet">Bedroom</a></li>
+						<li class="color"><a href="${pageContext.request.contextPath}/Category4Servlet">Office</a></li>
+						<li><a href="${pageContext.request.contextPath}/Category5Servlet">Outdoor</a></li>
 					</ul>
 				</div>
 				<div class="a" id="main_block">
@@ -193,7 +195,7 @@ to {
 							beautiful.<br> We bring high-quality, unique and
 							contemporary designs, that are affordable to everyone.<br>
 							Designs that make life, work, and play better.<br> To us,
-							high-end design doesn't mean inaccessible.
+							high-end design doesn't mean inaccessible.<br><br>
 						</p>
 					</div>
 				</div>

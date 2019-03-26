@@ -4,11 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Error</title>
+<title>Insert title here</title>
 </head>
-<body  bgcolor=#99FF99>
-<div align="center">
-You are already logged in! <br> <a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a>
-</div>
+<body>
+<H1> Cancel Order </H1>
+<%
+session.invalidate();	
+%>
+Your order has been cancelled. Thank you for shopping.
+<P>
+<FORM method=get action="ProductList.jsp">
+<INPUT type=submit value="Resume Shopping">
+</FORM>
+</P>
 </body>
 </html>

@@ -43,9 +43,21 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void doGet_DisplayCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("product/cartPage.jsp").forward(request, response);
+
+		HttpSession session = request.getSession();
+		if( session.getAttribute("cart") == null) {
+			request.getRequestDispatcher("emptyCart.jsp").forward(request, response);
+		}else {
+			List<Item> cart = (List<Item>) session.getAttribute("cart");
+			if(cart.size()==0) {
+				request.getRequestDispatcher("emptyCart.jsp").forward(request, response);
+			}else {
+				request.getRequestDispatcher("product/cartPage.jsp").forward(request, response);
+			}
+		}
 	}
 
 	protected void doGet_Remove(HttpServletRequest request, HttpServletResponse response)
@@ -80,6 +92,7 @@ public class CartServlet extends HttpServlet {
 		}
 		response.sendRedirect("cart");
 	}
+
 
 	private int isExisting(String code, List<Item> cart) {
 		for (int i = 0; i < cart.size(); i++) {

@@ -29,7 +29,6 @@
     <servlet-name>contact</servlet-name>
     <url-pattern>/contact</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <servlet-name>LogoutServlet</servlet-name>

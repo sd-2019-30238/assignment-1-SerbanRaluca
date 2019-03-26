@@ -6,12 +6,16 @@ public class Product {
 	private String name;
 	private String photo;
 	private double price;
+	private String category;
+	private int quantity;
 
-	public Product(String code, String name, String photo,double price) {
+	public Product(String code, String name, String photo,double price,String category,int quantity) {
 		this.code = code;
 		this.name = name;
 		this.photo = photo;
 		this.price = price;
+		this.category=category;
+		this.quantity=quantity;
 	}
 
 	public Product() {
@@ -48,6 +52,22 @@ public class Product {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }
