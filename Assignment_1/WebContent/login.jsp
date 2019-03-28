@@ -26,12 +26,6 @@ function validate()
 </head>
 <body bgcolor=#99FF99>
 
-	<%
-		if (session.getAttribute("User") != null) {
-			response.sendRedirect("error.jsp");
-		}
-	%>
-
 	<form method="post" action="Login">
 		<table align="center">
 			<tr>

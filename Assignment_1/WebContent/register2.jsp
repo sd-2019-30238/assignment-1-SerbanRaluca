@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Success page</title>
 </head>
-<body>
+<body bgcolor=#99FF9>
 	<a><b>Welcome User!!!!</b></a>
 </body>
 </html>

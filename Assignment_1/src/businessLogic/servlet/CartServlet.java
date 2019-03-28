@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import businessLogic.beans.Item;
+import businessLogic.beans.Product;
 import businessLogic.utils.DBUtils;
 
 @WebServlet("/cart")
@@ -76,21 +77,33 @@ public class CartServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("cart") == null) {
 			List<Item> cart = new ArrayList<Item>();
-			cart.add(new Item(DBUtils.findProduct(request.getParameter("code")), 1));
-			session.setAttribute("cart", cart);
+			Product product=DBUtils.findProduct(request.getParameter("code"));
+			if(product.isAvailable()==true) {
+				cart.add(new Item(product, 1));
+				session.setAttribute("cart", cart);
+				response.sendRedirect("cart");
+			}else {
+				response.sendRedirect("error2.jsp");
+			}
 		} else {
 			@SuppressWarnings("unchecked")
 			List<Item> cart = (List<Item>) session.getAttribute("cart");
-			int index = isExisting(request.getParameter("code"), cart);
-			if (index == -1) {
-				cart.add(new Item(DBUtils.findProduct(request.getParameter("code")), 1));
-			} else {
-				int quantity = cart.get(index).getQuantity() + 1;
-				cart.get(index).setQuantity(quantity);
+			Product product=DBUtils.findProduct(request.getParameter("code"));
+			if(product.isAvailable()==true) {
+				int index = isExisting(request.getParameter("code"), cart);
+				if (index == -1) {	
+					cart.add(new Item(product, 1));
+				} else {
+					int quantity = cart.get(index).getQuantity() + 1;
+					cart.get(index).setQuantity(quantity);
+				}
+				session.setAttribute("cart", cart);
+				response.sendRedirect("cart");
+			}else {
+				response.sendRedirect("error2.jsp");
 			}
-			session.setAttribute("cart", cart);
 		}
-		response.sendRedirect("cart");
+		
 	}
 
 

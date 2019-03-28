@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>User Info</title>
  </head>
- <body>
+ <body bgcolor=#99FF99>
  
     <jsp:include page="_header.jsp"></jsp:include>
     <jsp:include page="_menu.jsp"></jsp:include>

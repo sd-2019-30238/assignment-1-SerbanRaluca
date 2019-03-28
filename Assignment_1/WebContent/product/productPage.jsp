@@ -7,7 +7,6 @@
 
 
 <style>
-
 .a div {
 	display: inline-block;
 }
@@ -74,7 +73,7 @@
 </head>
 <body bgcolor=#99FF99>
 	<h2>Filter products:</h2>
-	
+
 	<div class="a" style="text-align: right">
 		<a href="${pageContext.request.contextPath }/home">Home</a>
 	</div>
@@ -113,6 +112,28 @@
 			<input type="submit" data-inline="true" value="Submit">
 		</form>
 	</div>
+
+	<div class="a">
+		<form method="post" name="frm" action="search">
+			<table border="0" width="300" align="left" bgcolor="#99FF99">
+				<tr>
+					<td colspan=2 style="font-size: 12pt;" align="center">
+						<h3>Search Product:</h3>
+					</td>
+				</tr>
+				<tr>
+					<td><b>Name:</b></td>
+					<td>: <input type="text" name="pid" id="pid">
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 align="center"><input type="submit"
+						name="submit" value="Search"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<br></br>
 
 	<table cellpadding="70" cellspacing="2" border="1"
 		id="tableProductList">

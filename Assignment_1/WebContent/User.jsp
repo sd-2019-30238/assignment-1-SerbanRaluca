@@ -5,19 +5,7 @@
 <head>
 <title>User Page</title>
 </head>
-<%
-	if ((request.getSession(false).getAttribute("User") == null)) {
-%>
-<jsp:forward page="/login.jsp"></jsp:forward>
-<%
-	}
-%>
 <body  bgcolor=#99FF99>
-	<%
-		if (session.getAttribute("User") == null) {
-			response.sendRedirect("login.jsp");
-		}
-	%>
 	<center>
 		<h2>User's Home</h2>
 	</center>

@@ -20,7 +20,6 @@
     <servlet-name>login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>contact</servlet-name>
     <servlet-class>businessLogic.servlet.ContactServlet</servlet-class>

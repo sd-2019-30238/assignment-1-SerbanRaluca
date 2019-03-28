@@ -75,7 +75,7 @@
 				<td><input type="password" name="conpassword" /></td>
 			</tr>
 			<tr>
-				<td><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></td>
+				<td><span style="color: red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></span></td>
 			</tr>
 			<tr>
 				<td></td>

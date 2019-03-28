@@ -51,7 +51,12 @@ public class LoginServlet extends HttpServlet {
 		 {
 		 System.out.println("Admin's Home");
 		 
-		 HttpSession session = request.getSession(); //Creating a session
+		 HttpSession session ;//Creating a session
+         if(request.getSession(false) == null) {
+              session = request.getSession(true);
+         } else {
+             session = request.getSession(false);
+         }
 		 session.setAttribute("Admin", userName); //setting session attribute
 		 request.setAttribute("userName", userName);
 		 MyUtils.storeLoginedUser(session, user);
@@ -71,7 +76,12 @@ public class LoginServlet extends HttpServlet {
 		 {
 		 System.out.println("Staff's Home");
 		 
-		 HttpSession session = request.getSession();
+		 HttpSession session ;//Creating a session
+         if(request.getSession(false) == null) {
+              session = request.getSession(true);
+         } else {
+             session = request.getSession(false);
+         }
 		 session.setAttribute("Staff", userName);
 		 request.setAttribute("userName", userName);
 		 MyUtils.storeLoginedUser(session, user);
@@ -91,7 +101,12 @@ public class LoginServlet extends HttpServlet {
 		 {
 		 System.out.println("User's Home");
 		 
-		 HttpSession session = request.getSession();
+		 HttpSession session ;//Creating a session
+         if(request.getSession(false) == null) {
+              session = request.getSession(true);
+         } else {
+             session = request.getSession(false);
+         }
 		 session.setMaxInactiveInterval(10*60);
 		 session.setAttribute("User", userName);
 		 request.setAttribute("userName", userName);

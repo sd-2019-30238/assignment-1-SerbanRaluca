@@ -5,12 +5,8 @@
  
    <a href="${pageContext.request.contextPath}/">Home</a>
    |
-   <a href="${pageContext.request.contextPath}/register">Register</a>
+   <a href="${pageContext.request.contextPath}/history">Order History</a>
    |
-   <a href="${pageContext.request.contextPath}/productList">Product List</a>
-   |
-   <a href="${pageContext.request.contextPath}/userInfo">My Account Info</a>
-   |
-   <a href="${pageContext.request.contextPath}/login">Login</a>
+   <a href="${pageContext.request.contextPath}/LogoutServlet">Log out</a>
     
 </div>  
