@@ -9,6 +9,8 @@ public class Order {
 	private String zipcode;
 	private String country;
 	private Double total;
+	private String username;
+	private String state;
 	
 	public Order() {
 		
@@ -68,6 +70,22 @@ public class Order {
 
 	public void setTotal(Double total) {
 		this.total = total;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 	

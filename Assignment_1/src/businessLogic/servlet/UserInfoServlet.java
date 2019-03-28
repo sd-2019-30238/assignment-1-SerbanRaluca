@@ -38,8 +38,6 @@ public class UserInfoServlet extends HttpServlet {
         // Store info to the request attribute before forwarding.
         request.setAttribute("user", loginedUser);
  
-        // If the user has logged in, then forward to the page
-        // /WEB-INF/views/userInfoView.jsp
         RequestDispatcher dispatcher //
                 = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
         dispatcher.forward(request, response);

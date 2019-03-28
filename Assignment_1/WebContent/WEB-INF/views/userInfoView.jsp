@@ -14,7 +14,9 @@
     <h3>Hello: ${user.userName}</h3>
  
     User Name: <b>${user.userName}</b>
- 
+    <br>
+    <br>
+    <br>
     <jsp:include page="_footer.jsp"></jsp:include>
  
  </body>

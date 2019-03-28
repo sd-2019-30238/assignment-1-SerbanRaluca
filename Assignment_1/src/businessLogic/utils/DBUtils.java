@@ -206,5 +206,39 @@ public class DBUtils {
 		}
 		return list;
 	} 
+	
+	public static List<Order> queryOrder(String username) throws SQLException {
+		String sql = "Select first_name, last_name,address,city, zipcode,country,total,state from furnituredeals.order where username=? ";
+		ConnectionFactory.getInstance();
+		Connection conn=ConnectionFactory.getConnection();
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, username);
+
+		ResultSet rs = pstm.executeQuery();
+		List<Order> list = new ArrayList<Order>();
+		while (rs.next()) {
+			String firstname = rs.getString("first_name");
+			String lastname = rs.getString("last_name");
+			String address = rs.getString("address");
+			String city = rs.getString("city");
+			String country = rs.getString("country");
+			String zipcode = rs.getString("zipcode");
+			Double total=rs.getDouble("total");
+			String state=rs.getString("state");
+			Order order = new Order();
+			order.setFirst_name(firstname);
+			order.setAddress(address);
+			order.setCity(city);
+			order.setCountry(country);
+			order.setLast_name(lastname);
+			order.setState(state);
+			order.setTotal(total);
+			order.setUsername(username);
+			order.setZipcode(zipcode);
+			list.add(order);
+		}
+		return list;
+	}
+
 
 }

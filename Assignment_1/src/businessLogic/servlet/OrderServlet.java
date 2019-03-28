@@ -2,7 +2,6 @@ package businessLogic.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +16,7 @@ import businessLogic.OrderDAO;
 import businessLogic.beans.Item;
 import businessLogic.beans.Order;
 import businessLogic.utils.DBUtils;
+import businessLogic.utils.MyUtils;
 
 /**
  * Servlet implementation class OrderServlet
@@ -101,9 +101,11 @@ public class OrderServlet extends HttpServlet {
 		order.setFirst_name(firstname);
 		order.setLast_name(lastname);
 		order.setZipcode(zipcode);
+		
 	
         String m="";
 		HttpSession session=request.getSession();
+		order.setUsername(MyUtils.getLoginedUser(session).getUserName());
 		@SuppressWarnings("unused")
 		List<Item> cart= (List<Item>) session.getAttribute("cart");
 		for(int i=0;i<cart.size();i++) {
