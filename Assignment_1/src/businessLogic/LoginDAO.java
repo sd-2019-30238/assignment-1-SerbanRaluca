@@ -10,11 +10,11 @@ import dataAccess.connection.ConnectionFactory;
 
 public class LoginDAO {
 
-	
+
 	public LoginDAO() {
-		
+
 	}
-	
+
 	public String LoginCheck(User user) {
 		ConnectionFactory.getInstance();
 		Connection conn=ConnectionFactory.getConnection();
@@ -32,17 +32,15 @@ public class LoginDAO {
 				String pass=rs.getString("password");
 				String role=rs.getString("role");
 				if(uname.equals(username) && pass.equals(password) && role.equals("Admin"))
-					 return "Admin_Role";
-					 else if(uname.equals(username) && pass.equals(password) && role.equals("Staff"))
-					 return "Staff_Role";
-					 else if(uname.equals(username) && password.equals(password) && role.equals("User"))
-					 return "User_Role";
+					return "Admin_Role";
+				else if(uname.equals(username) && password.equals(password) && role.equals("User"))
+					return "User_Role";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "Invalid user credentials!";
-			
+
 	}
 }

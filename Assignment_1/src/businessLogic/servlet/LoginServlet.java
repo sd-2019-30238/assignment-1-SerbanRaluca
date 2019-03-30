@@ -25,9 +25,17 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher= this.getServletContext().getRequestDispatcher("/login.jsp");
+		HttpSession session ;
+		session=request.getSession();
+		if(MyUtils.getLoginedUser(session)==null) {
+			RequestDispatcher dispatcher= this.getServletContext().getRequestDispatcher("/login.jsp");
 
-		dispatcher.forward(request, response);
+			dispatcher.forward(request, response);
+		}else {
+			RequestDispatcher dispatcher= this.getServletContext().getRequestDispatcher("/error.jsp");
+
+			dispatcher.forward(request, response);
+		}
 
 	}
 
@@ -47,87 +55,61 @@ public class LoginServlet extends HttpServlet {
 		LoginDAO loginDao=new LoginDAO();
 		String validate=loginDao.LoginCheck(user);
 		if(validate.equals("Admin_Role"))
-		 {
-		 System.out.println("Admin's Home");
-		 
-		 HttpSession session ;//Creating a session
-         if(request.getSession(false) == null) {
-              session = request.getSession(true);
-         } else {
-             session = request.getSession(false);
-         }
-		 session.setAttribute("Admin", userName); //setting session attribute
-		 request.setAttribute("userName", userName);
-		 MyUtils.storeLoginedUser(session, user);
-		 
-         // If user checked "Remember me".
-         if (remember) {
-             MyUtils.storeUserCookie(response, user);
-         }
-         // Else delete cookie.
-         else {
-             MyUtils.deleteUserCookie(response);
-         }
-		 
-		 request.getRequestDispatcher("/Admin.jsp").forward(request, response);
-		 }
-		 else if(validate.equals("Staff_Role"))
-		 {
-		 System.out.println("Staff's Home");
-		 
-		 HttpSession session ;//Creating a session
-         if(request.getSession(false) == null) {
-              session = request.getSession(true);
-         } else {
-             session = request.getSession(false);
-         }
-		 session.setAttribute("Staff", userName);
-		 request.setAttribute("userName", userName);
-		 MyUtils.storeLoginedUser(session, user);
-		 
-         // If user checked "Remember me".
-         if (remember) {
-             MyUtils.storeUserCookie(response, user);
-         }
-         // Else delete cookie.
-         else {
-             MyUtils.deleteUserCookie(response);
-         }
-		 
-		 request.getRequestDispatcher("/Staff.jsp").forward(request, response);
-		 }
-		 else if(validate.equals("User_Role"))
-		 {
-		 System.out.println("User's Home");
-		 
-		 HttpSession session ;//Creating a session
-         if(request.getSession(false) == null) {
-              session = request.getSession(true);
-         } else {
-             session = request.getSession(false);
-         }
-		 session.setMaxInactiveInterval(10*60);
-		 session.setAttribute("User", userName);
-		 request.setAttribute("userName", userName);
-		 MyUtils.storeLoginedUser(session, user);
-		 
-         // If user checked "Remember me".
-         if (remember) {
-             MyUtils.storeUserCookie(response, user);
-         }
-         // Else delete cookie.
-         else {
-             MyUtils.deleteUserCookie(response);
-         }
-		 
-		 request.getRequestDispatcher("/User.jsp").forward(request, response);
-		 }
-		 else
-		 {
-		 System.out.println("Error message = "+validate);
-		 request.setAttribute("errMessage", validate);
-		 request.getRequestDispatcher("/login.jsp").forward(request, response);
-		 }
+		{
+			System.out.println("Admin's Home");
+
+			HttpSession session ;//Creating a session
+			if(request.getSession(false) == null) {
+				session = request.getSession(true);
+			} else {
+				session = request.getSession(false);
+			}
+			session.setAttribute("Admin", userName); //setting session attribute
+			request.setAttribute("userName", userName);
+			MyUtils.storeLoginedUser(session, user);
+
+			// If user checked "Remember me".
+			if (remember) {
+				MyUtils.storeUserCookie(response, user);
+			}
+			// Else delete cookie.
+			else {
+				MyUtils.deleteUserCookie(response);
+			}
+
+			request.getRequestDispatcher("/Admin.jsp").forward(request, response);
+		}else if(validate.equals("User_Role"))
+		{
+			System.out.println("User's Home");
+
+			HttpSession session ;//Creating a session
+			if(request.getSession(false) == null) {
+				session = request.getSession(true);
+			} else {
+				session = request.getSession(false);
+			}
+			session.setMaxInactiveInterval(10*60);
+			session.setAttribute("User", userName);
+			request.setAttribute("userName", userName);
+			MyUtils.storeLoginedUser(session, user);
+
+			// If user checked "Remember me".
+			if (remember) {
+				MyUtils.storeUserCookie(response, user);
+			}
+			// Else delete cookie.
+			else {
+				MyUtils.deleteUserCookie(response);
+			}
+
+			request.getRequestDispatcher("/User.jsp").forward(request, response);
+		}
+		else
+		{
+			System.out.println("Error message = "+validate);
+			request.setAttribute("errMessage", validate);
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
 	}
 
 }

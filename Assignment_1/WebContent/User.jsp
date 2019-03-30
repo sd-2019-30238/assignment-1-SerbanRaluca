@@ -5,15 +5,15 @@
 <head>
 <title>User Page</title>
 </head>
-<body  bgcolor=#99FF99>
+<body bgcolor=#99FF99>
 	<center>
 		<h2>User's Home</h2>
 	</center>
-	Login Successful!<br>
-	Welcome
+	Login Successful!
+	<br> Welcome
 	<%=request.getAttribute("userName")%>!
-	
-	
+
+
 	<div style="text-align: left">
 		<a href="<%=request.getContextPath()%>/home">Continue shopping</a>
 	</div>

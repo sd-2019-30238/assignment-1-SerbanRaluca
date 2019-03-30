@@ -5,27 +5,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login Page</title>
-<script> 
-function validate()
-{ 
- var username = document.form.username.value; 
- var password = document.form.password.value;
- 
- if (username==null || username=="")
- { 
- alert("Username cannot be blank"); 
- return false; 
- }
- else if(password==null || password=="")
- { 
- alert("Password cannot be blank"); 
- return false; 
- } 
-}
+<script>
+	function validate() {
+		var username = document.form.username.value;
+		var password = document.form.password.value;
+
+		if (username == null || username == "") {
+			alert("Username cannot be blank");
+			return false;
+		} else if (password == null || password == "") {
+			alert("Password cannot be blank");
+			return false;
+		}
+	}
 </script>
 </head>
 <body bgcolor=#99FF99>
-
 	<form method="post" action="Login">
 		<table align="center">
 			<tr>

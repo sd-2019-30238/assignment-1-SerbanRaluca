@@ -1,7 +1,10 @@
 package businessLogic.beans;
 
+import java.util.UUID;
+
 public class Order {
 
+	private UUID id;
 	private String first_name;
 	private String last_name;
 	private String address;
@@ -11,9 +14,9 @@ public class Order {
 	private Double total;
 	private String username;
 	private String state;
-	
+
 	public Order() {
-		
+
 	}
 
 	public String getFirst_name() {
@@ -87,6 +90,14 @@ public class Order {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+
 }

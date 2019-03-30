@@ -67,17 +67,15 @@
 			<td>${total }</td>
 		</tr>
 	</table>
-		<form action="order"  method="post">
-			<h1 align="center">Checkout</h1>
-			First name: <input type="text" name="firstname"><br>
-			Last name: <input type="text" name="lastname"><br>
-
-			Address: <input type="text" name="address"><br>
-			City: <input type="text" name="city"><br> 
-			Zip Code: <input type="text" name="zipcode"><br> 
-			Country: <input type="text" name="country"><br> 
-			<span style="color: red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></span>
-			<input type="submit" value="Confirm">
-		</form>
+	<form action="order" method="post">
+		<h1 align="center">Checkout</h1>
+		First name: <input type="text" name="firstname"><br> Last
+		name: <input type="text" name="lastname"><br> Address: <input
+			type="text" name="address"><br> City: <input type="text"
+			name="city"><br> Zip Code: <input type="text"
+			name="zipcode"><br> Country: <input type="text"
+			name="country"><br> <span style="color: red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></span>
+		<input type="submit" value="Confirm">
+	</form>
 </body>
 </html>

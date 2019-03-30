@@ -27,7 +27,7 @@ public class RegisterDAO {
 			ConnectionFactory.getInstance();
 			con = ConnectionFactory.getConnection();
 			String query = "insert into user (id,first_name,last_name,email,username,password,address,number,role) values (NULL,?,?,?,?,?,?,?,?)"; 
-			preparedStatement = con.prepareStatement(query); //Making use of prepared statements here to insert bunch of data
+			preparedStatement = con.prepareStatement(query); 
 			preparedStatement.setString(1, firstName);
 			preparedStatement.setString(2, lastName);
 			preparedStatement.setString(3, email);

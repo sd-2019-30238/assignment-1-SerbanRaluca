@@ -37,7 +37,9 @@
 </script>
 </head>
 <body bgcolor=#99FF99>
-	<center><h1>New User Registration</h1></center>
+	<center>
+		<h1>New User Registration</h1>
+	</center>
 	<form name="form" action="Register" method="post"
 		onsubmit="return validate()">
 		<table style="with: 50%" align="center">
@@ -79,7 +81,8 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" value="Register"></input><input type="reset" value="Reset"></input></td>
+				<td><input type="submit" value="Register"></input><input
+					type="reset" value="Reset"></input></td>
 			</tr>
 		</table>
 	</form>

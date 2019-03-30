@@ -5,30 +5,15 @@
 <head>
 <title>Admin Page</title>
 </head>
-<%
-	//In case, if Admin session is not set, redirect to Login page
-	if ((request.getSession(false).getAttribute("Admin") == null)) {
-%>
-<jsp:forward page="/login.jsp"></jsp:forward>
-<%
-	}
-%>
-<body>
-
-	<%
-		if (session.getAttribute("Admin") == null) {
-			response.sendRedirect("login.jsp");
-		}
-	%>
+<body bgcolor=#99FF99>
 	<center>
 		<h2>Admin's Home</h2>
 	</center>
+	<a href="${pageContext.request.contextPath}/products">Products</a> |
+	<a href="${pageContext.request.contextPath}/orders">Update Order</a> |
+	<a href="${pageContext.request.contextPath}/LogoutServlet">Log out</a>
+	<br> Hello Admin:
+	<b>${loginedUser.userName}</b>
 
-	Welcome
-	<%=request.getAttribute("userName")%>
-
-	<div style="text-align: right">
-		<a href="<%=request.getContextPath()%>/LogoutServlet">Logout</a>
-	</div>
 </body>
 </html>

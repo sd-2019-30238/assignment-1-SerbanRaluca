@@ -20,6 +20,7 @@ public class OrderDAO {
 		Double total=order.getTotal();
 		String username=order.getUsername();
 		String state=order.getState();
+		String id=order.getId().toString();
 
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
@@ -28,17 +29,18 @@ public class OrderDAO {
 		{
 			ConnectionFactory.getInstance();
 			con = ConnectionFactory.getConnection();
-			String query = "insert into furnituredeals.order (id,first_name,last_name,address,city,zipcode,country,total,username,state) values (NULL,?,?,?,?,?,?,?,?,?)"; 
+			String query = "insert into furnituredeals.order (id,first_name,last_name,address,city,zipcode,country,total,username,state,feedback) values (?,?,?,?,?,?,?,?,?,?,NULL)"; 
 			preparedStatement = con.prepareStatement(query); 
-			preparedStatement.setString(1, firstName);
-			preparedStatement.setString(2, lastName);
-			preparedStatement.setString(3, address);
-			preparedStatement.setString(4, city);
-			preparedStatement.setString(5, zipcode);
-			preparedStatement.setString(6, country);
-			preparedStatement.setString(7, Double.toString(total));
-			preparedStatement.setString(8, username);
-			preparedStatement.setString(9, state);
+			preparedStatement.setString(1, id);
+			preparedStatement.setString(2, firstName);
+			preparedStatement.setString(3, lastName);
+			preparedStatement.setString(4, address);
+			preparedStatement.setString(5, city);
+			preparedStatement.setString(6, zipcode);
+			preparedStatement.setString(7, country);
+			preparedStatement.setString(8, Double.toString(total));
+			preparedStatement.setString(9, username);
+			preparedStatement.setString(10, state);
 
 			int i= preparedStatement.executeUpdate();
 

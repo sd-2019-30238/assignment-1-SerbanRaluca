@@ -38,7 +38,7 @@ public class ConnectionFactory {
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 			connection = DriverManager.getConnection(DBURL, USER, PASS);
-		    //System.out.println(connection);
+			//System.out.println(connection);
 		} catch (SQLException e) {
 			LOGGER.log(Level.WARNING, "An error occured while trying to connect to the database");
 			e.printStackTrace();

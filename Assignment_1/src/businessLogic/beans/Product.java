@@ -19,7 +19,7 @@ public class Product {
 	}
 
 	public Product() {
-		
+
 	}
 
 	public String getCode() {
@@ -69,7 +69,7 @@ public class Product {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
 	public boolean isAvailable() {
 		if(this.quantity>0) {
 			return true;

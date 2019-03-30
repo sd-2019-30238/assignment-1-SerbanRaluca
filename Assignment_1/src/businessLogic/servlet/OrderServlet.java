@@ -3,6 +3,7 @@ package businessLogic.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,7 +54,6 @@ public class OrderServlet extends HttpServlet {
 		String city=request.getParameter("city");
 		String zipcode=request.getParameter("zipcode");
 		String country=request.getParameter("country");
-		//Double total=Double.parseDouble(request.getParameter("total"));
 		Double total=0.0;
 
 		System.out.println("aici");
@@ -95,12 +95,15 @@ public class OrderServlet extends HttpServlet {
 		}
 
 		Order order=new Order();
+	    UUID id = UUID.randomUUID();
+	    order.setId(id);
 		order.setAddress(address);
 		order.setCity(city);
 		order.setCountry(country);
 		order.setFirst_name(firstname);
 		order.setLast_name(lastname);
 		order.setZipcode(zipcode);
+		order.setState("receptionata");
 		
 	
         String m="";
@@ -129,11 +132,11 @@ public class OrderServlet extends HttpServlet {
 		OrderDAO orderDao=new OrderDAO();
 		String msg=orderDao.placeOrder(order);
 
-		if(msg.equals("SUCCESS") && m.equals("SUCCESS"))   //On success, you can display a message to user on Home page
+		if(msg.equals("SUCCESS") && m.equals("SUCCESS"))  
 		{
 			request.getRequestDispatcher("/order.jsp").forward(request, response);
 		}
-		else   //On Failure, display a meaningful message to the User.
+		else 
 		{
 			request.setAttribute("errMessage", msg);
 			request.getRequestDispatcher("/CheckoutPage.jsp").forward(request, response);

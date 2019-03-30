@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome Page</title>
 </head>
-<body  bgcolor=#99FF99>
+<body bgcolor=#99FF99>
 
 	<h1>Welcome to FurnitureDeals!</h1>
 

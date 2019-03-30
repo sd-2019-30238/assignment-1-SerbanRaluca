@@ -2,9 +2,6 @@ package businessLogic.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,22 +28,13 @@ public class HistoryServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		 
-        // Check User has logged on
-        User user = MyUtils.getLoginedUser(session);
+
+		// Check User has logged on
+		User user = MyUtils.getLoginedUser(session);
 		try {
 			request.setAttribute("orders", DBUtils.queryOrder(user.getUserName()));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			System.out.println(DBUtils.queryOrder(user.getUserName()).size());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
