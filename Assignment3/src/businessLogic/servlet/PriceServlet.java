@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.utils.DBUtils;
+import cqrs.readModel.ProductQueryService;
 
 /**
  * Servlet implementation class PriceServlet
@@ -34,7 +34,7 @@ public class PriceServlet extends HttpServlet {
 		double min=Double.parseDouble(request.getParameter("price-min"));
 		double max=Double.parseDouble(request.getParameter("price-max"));
 		try {
-			request.setAttribute("products", DBUtils.queryPrice(min,max));
+			request.setAttribute("products", ProductQueryService.queryPrice(min,max));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

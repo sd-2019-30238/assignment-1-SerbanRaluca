@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import businessLogic.RegisterDAO;
+
+import businessLogic.Mediator;
 import businessLogic.beans.*;
 import businessLogic.validators.EmailValidator;
 import businessLogic.validators.NumberValidator;
+import cqrs.writeModel.UserWriteModel;
 
 /**
  * Servlet implementation class Register
@@ -25,7 +27,7 @@ public class Register extends HttpServlet {
 	 */
 	public Register() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -94,7 +96,7 @@ public class Register extends HttpServlet {
 			return;
 		}
 
-
+		
 		User user=new User(first_name,last_name,email,username,password,address,contact);
 		EmailValidator validator1=new EmailValidator();
 		try {
@@ -114,10 +116,9 @@ public class Register extends HttpServlet {
 			request.getRequestDispatcher("/register1.jsp").forward(request, response);
 			return;
 		}
-		RegisterDAO registerDao=new RegisterDAO();
-		String userRegistered=registerDao.registerUser(user);
-		redirectUser(request,response,userRegistered);
-        /*
+		Mediator mediator=new Mediator();
+		UserWriteModel writeModel=new UserWriteModel(mediator);
+		String userRegistered=writeModel.registerUser(user);
 		if(userRegistered.equals("SUCCESS"))   //On success, you can display a message to user on Home page
 		{
 			request.getRequestDispatcher("/Welcome.jsp").forward(request, response);
@@ -127,32 +128,5 @@ public class Register extends HttpServlet {
 			request.setAttribute("errMessage", userRegistered);
 			request.getRequestDispatcher("/register1.jsp").forward(request, response);
 		}
-		*/
 	}
-	
-	public void redirectUser(HttpServletRequest request,HttpServletResponse response,String state) {
-		if(state.equals("SUCCESS"))   //On success, you can display a message to user on Home page
-		{
-			try {
-				request.getRequestDispatcher("/Welcome.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else   //On Failure, display a meaningful message to the User.
-		{
-			request.setAttribute("errMessage", state);
-			try {
-				request.getRequestDispatcher("/register1.jsp").forward(request, response);
-			} catch (ServletException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
 }

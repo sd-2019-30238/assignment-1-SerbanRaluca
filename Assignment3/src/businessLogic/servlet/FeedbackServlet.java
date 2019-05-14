@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.utils.DBUtils;
+import businessLogic.Mediator;
+import cqrs.writeModel.OrderWriteModel;
 
 /**
  * Servlet implementation class FeedbackServlet
@@ -59,7 +60,9 @@ public class FeedbackServlet extends HttpServlet {
 	protected void doGet_feedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String feedback=request.getParameter("feedback");
 		System.out.println(feedback+"da");
-		String msg=DBUtils.updateFeedback(feedback,request.getParameter("id"));
+		Mediator mediator=new Mediator();
+		OrderWriteModel writeModel=new OrderWriteModel(mediator);
+		String msg=writeModel.updateFeedback(feedback,request.getParameter("id"));
 		if(msg.equalsIgnoreCase("SUCCESS")) {
 			response.sendRedirect("thanks.jsp");
 		}else {

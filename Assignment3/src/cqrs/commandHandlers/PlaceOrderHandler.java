@@ -1,26 +1,36 @@
-package businessLogic;
+package cqrs.commandHandlers;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import businessLogic.beans.Order;
+import cqrs.commandHandlers.IHandler;
+import cqrs.writeModel.ICommand;
+import cqrs.writeModel.PlaceOrderCommand;
 import dataAccess.connection.ConnectionFactory;
 
-public class OrderDAO {
+public class PlaceOrderHandler implements IHandler {
 
-	public String placeOrder(Order order){
+	private String type;
 
-		String firstName = order.getFirst_name();
-		String lastName = order.getLast_name();
-		String address = order.getAddress();
-		String city = order.getCity();
-		String zipcode = order.getZipcode();
-		String country = order.getCountry();
-		Double total=order.getTotal();
-		String username=order.getUsername();
-		String state=order.getState();
-		String id=order.getId().toString();
+	public PlaceOrderHandler() {
+		this.type="placeOrder";
+	}
+
+	@Override
+	public String handle(ICommand placeOrderCommand) {
+		Order orderInfo=((PlaceOrderCommand) placeOrderCommand).getOrderInfo();
+		String firstName = orderInfo.getFirst_name();
+		String lastName = orderInfo.getLast_name();
+		String address =orderInfo.getAddress();
+		String city = orderInfo.getCity();
+		String zipcode =orderInfo.getZipcode();
+		String country = orderInfo.getCountry();
+		Double total=orderInfo.getTotal();
+		String username=orderInfo.getUsername();
+		String state=orderInfo.getState();
+		String id=orderInfo.getId().toString();
 
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
@@ -52,4 +62,14 @@ public class OrderDAO {
 
 		return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
 }

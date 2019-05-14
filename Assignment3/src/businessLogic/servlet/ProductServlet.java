@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.utils.DBUtils;
+import cqrs.readModel.ProductQueryService;
 
 @WebServlet("/product")
 public class ProductServlet extends HttpServlet {
@@ -23,7 +23,7 @@ public class ProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			request.setAttribute("products", DBUtils.queryProduct());
+			request.setAttribute("products", ProductQueryService.queryProduct());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

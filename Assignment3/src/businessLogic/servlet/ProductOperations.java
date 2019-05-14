@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.AbstractDiscountCreator;
 import businessLogic.Discount;
 import businessLogic.DiscountCreator;
-import businessLogic.utils.DBUtils;
+import businessLogic.Mediator;
+import cqrs.readModel.ProductQueryService;
+import cqrs.writeModel.ProductWriteModel;
 
 /**
  * Servlet implementation class ProductOperations
@@ -20,13 +22,16 @@ import businessLogic.utils.DBUtils;
 @WebServlet("/products")
 public class ProductOperations extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private ProductWriteModel writeModel;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ProductOperations() {
 		super();
-		// TODO Auto-generated constructor stub
+		Mediator mediator=new Mediator();
+		writeModel=new ProductWriteModel(mediator);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,13 +54,8 @@ public class ProductOperations extends HttpServlet {
 		AbstractDiscountCreator discountCreator=new DiscountCreator();
 		Discount discount=discountCreator.createDiscount(request.getParameter("discount"));
 		Double new_price=discount.applyDiscount(Double.parseDouble(request.getParameter("price")));
-		try {
-			DBUtils.updatePrice(request.getParameter("code"), new_price);
-			response.sendRedirect("products");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		writeModel.updatePrice(request.getParameter("code"), new_price);
+		response.sendRedirect("products");
 
 	}
 
@@ -69,14 +69,14 @@ public class ProductOperations extends HttpServlet {
 	private void doGet_Remove(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		try {
-			String msg=DBUtils.removeProduct(request.getParameter("code"));
+			String msg=writeModel.removeProduct(request.getParameter("code"));
 			if(msg.equalsIgnoreCase("SUCCESS")) {
 				response.sendRedirect("products");
 			}else {
 				request.setAttribute("errMessage", msg);
 				response.sendRedirect("products");
 			}
-		} catch (SQLException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -88,7 +88,7 @@ public class ProductOperations extends HttpServlet {
 	protected void doGetView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			request.setAttribute("products", DBUtils.queryProduct());
+			request.setAttribute("products", ProductQueryService.queryProduct());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

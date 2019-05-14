@@ -1,15 +1,33 @@
-package businessLogic;
+package cqrs.commandHandlers;
+
+import cqrs.writeModel.AddProductCommand;
+import cqrs.writeModel.ICommand;
+import dataAccess.connection.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import businessLogic.beans.Product;
-import dataAccess.connection.ConnectionFactory;
 
-public class ProductDAO {
+public class AddProductHandler implements IHandler {
 
-	public String insertProduct(Product product) {
+	private String type;
+
+	public AddProductHandler() {
+		this.setType("addProduct");
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String handle(ICommand addProductCommand) {
+		Product product=((AddProductCommand) addProductCommand).getProductInfo();
 		String code = product.getCode();
 		String name=product.getName();
 		String photo=product.getPhoto();
@@ -44,6 +62,7 @@ public class ProductDAO {
 		}
 
 		return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
+
 	}
 
 }

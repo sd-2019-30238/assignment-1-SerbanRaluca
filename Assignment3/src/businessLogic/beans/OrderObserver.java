@@ -1,19 +1,19 @@
 package businessLogic.beans;
 
-import java.sql.SQLException;
-
-import businessLogic.utils.DBUtils;
+import businessLogic.Mediator;
+import cqrs.writeModel.OrderWriteModel;
 
 public class OrderObserver implements Observer {
 
+	private OrderWriteModel orderModel;
+	public OrderObserver() {
+		Mediator mediator=new Mediator();
+		orderModel=new OrderWriteModel(mediator);
+	}
+
 	@Override
 	public void update(String id,String state) {
-		try {
-			DBUtils.updateOrder(id,state);
-			System.out.println("Updated");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		orderModel.updateOrder(id,state);
+		System.out.println("Updated");
 	}
 }

@@ -4,5 +4,6 @@ import cqrs.writeModel.ICommand;
 
 public interface IHandler {
 
-	public void handle(ICommand command);
+	public String handle(ICommand command);
+	public String  getType();
 }

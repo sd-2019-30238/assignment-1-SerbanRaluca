@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.utils.DBUtils;
+import cqrs.readModel.ProductQueryService;
 
 /**
  * Servlet implementation class SearchServlet
@@ -31,7 +31,7 @@ public class SearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			request.setAttribute("products", DBUtils.findByName(request.getParameter("pid")));
+			request.setAttribute("products", ProductQueryService.findByName(request.getParameter("pid")));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

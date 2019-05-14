@@ -32,4 +32,5 @@ public class HomeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
+
 }

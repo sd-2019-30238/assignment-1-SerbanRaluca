@@ -1,7 +1,6 @@
 package businessLogic.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,11 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import businessLogic.OrderDAO;
+import businessLogic.Mediator;
 import businessLogic.beans.Item;
 import businessLogic.beans.Order;
-import businessLogic.utils.DBUtils;
 import businessLogic.utils.MyUtils;
+import cqrs.writeModel.OrderWriteModel;
+import cqrs.writeModel.ProductWriteModel;
 
 /**
  * Servlet implementation class OrderServlet
@@ -56,7 +56,6 @@ public class OrderServlet extends HttpServlet {
 		String country=request.getParameter("country");
 		Double total=0.0;
 
-		System.out.println("aici");
 
 		if(firstname.length() >45) {
 			request.setAttribute("errMessage", "First name cannot be more than 45 characters long.");
@@ -104,7 +103,9 @@ public class OrderServlet extends HttpServlet {
 		order.setLast_name(lastname);
 		order.setZipcode(zipcode);
 		order.setState("receptionata");
-		
+		Mediator mediator=new Mediator();
+		ProductWriteModel productModel=new ProductWriteModel(mediator);
+		OrderWriteModel orderModel=new OrderWriteModel(mediator);
 	
         String m="";
 		HttpSession session=request.getSession();
@@ -118,18 +119,11 @@ public class OrderServlet extends HttpServlet {
 			String code=cart.get(i).getProduct().getCode();
 			int q=cart.get(i).getProduct().getQuantity();
 			int newQuantity=q-quantity;
-			try {
-				m=DBUtils.updateProduct(code, newQuantity);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			m=productModel.updateProduct(code, newQuantity);
 		}
 		session.removeAttribute("cart");
-		System.out.println(total);
 		order.setTotal(total);
-		OrderDAO orderDao=new OrderDAO();
-		String msg=orderDao.placeOrder(order);
+		String msg=orderModel.placeOrder(order);
 
 		if(msg.equals("SUCCESS") && m.equals("SUCCESS"))  
 		{

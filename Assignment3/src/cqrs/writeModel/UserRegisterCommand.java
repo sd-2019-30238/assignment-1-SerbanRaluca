@@ -1,20 +1,15 @@
 package cqrs.writeModel;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import businessLogic.beans.User;
 
 public class UserRegisterCommand implements ICommand {
 
 	private User user;
-	private HttpServletRequest request;
-	private HttpServletResponse response;
+	private String type;
 	
-	public UserRegisterCommand(User user,HttpServletRequest request,HttpServletResponse response) {
+	public UserRegisterCommand(User user) {
 		this.setUser(user);
-		this.setRequest(request);
-		this.setResponse(response);
+		this.type="registerUser";
 	}
 
 	public User getUser() {
@@ -24,20 +19,12 @@ public class UserRegisterCommand implements ICommand {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public HttpServletRequest getRequest() {
-		return request;
+	
+	public String getType() {
+		return type;
 	}
 
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
-	}
-
-	public HttpServletResponse getResponse() {
-		return response;
-	}
-
-	public void setResponse(HttpServletResponse response) {
-		this.response = response;
+	public void setType(String type) {
+		this.type = type;
 	}	
 }

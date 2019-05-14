@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.utils.DBUtils;
+import cqrs.readModel.OrderQueryService;
 import businessLogic.beans.Observer;
 import businessLogic.beans.OrderObserver;
 
@@ -63,7 +63,7 @@ public class OrderViewServlet extends HttpServlet  {
 	 */
 	protected void doGet_display(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			request.setAttribute("orders", DBUtils.selectOrders());
+			request.setAttribute("orders", OrderQueryService.selectOrders());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

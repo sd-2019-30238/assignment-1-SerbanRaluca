@@ -16,8 +16,14 @@ public class Mediator {
 		handlers.add(handler);
 	}
 	
-	public void handle(String type) {
+	public String handle(ICommand command) {
+		String type=command.getType();
+		String result = null;
 		for(IHandler h:handlers) {
+			if(h.getType().equals(type)) {
+				result=h.handle(command);
+			}
 		}
+		return result;
 	}
 }

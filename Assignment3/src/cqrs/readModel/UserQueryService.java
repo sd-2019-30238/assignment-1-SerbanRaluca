@@ -1,4 +1,4 @@
-package businessLogic;
+package cqrs.readModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,20 +8,15 @@ import java.sql.SQLException;
 import businessLogic.beans.User;
 import dataAccess.connection.ConnectionFactory;
 
-public class LoginDAO {
+public class UserQueryService {
 
-
-	public LoginDAO() {
-
-	}
-
-	public String LoginCheck(User user) {
+	public static LoginCheckQueryResult loginCheck(String username,String password) {
 		ConnectionFactory.getInstance();
 		Connection conn=ConnectionFactory.getConnection();
-		String username=user.getUserName();
-		String password=user.getPassword();
 		String sqlQuery="SELECT * FROM user WHERE username=? and password=?";
 		PreparedStatement statement;
+		String userRole=null;
+		LoginCheckQueryResult result;
 		try {
 			statement = conn.prepareStatement(sqlQuery);
 			statement.setString(1,username);
@@ -32,15 +27,38 @@ public class LoginDAO {
 				String pass=rs.getString("password");
 				String role=rs.getString("role");
 				if(uname.equals(username) && pass.equals(password) && role.equals("Admin"))
-					return "Admin_Role";
+					userRole="Admin_Role";
 				else if(uname.equals(username) && password.equals(password) && role.equals("User"))
-					return "User_Role";
+					userRole="User_Role";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "Invalid user credentials!";
+		if(userRole!=null) {
+			result=new LoginCheckQueryResult(userRole);
+		}else {
+			result=new LoginCheckQueryResult("Invalid user credentials!");
+		}
+		return result;
+	}
+	
+	public static User findUser(Connection conn, String userName) throws SQLException {
 
+		String sql = "Select username, password  from user  where username = ? ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, userName);
+
+		ResultSet rs = pstm.executeQuery();
+
+		if (rs.next()) {
+			String password = rs.getString("Password");
+			User user = new User();
+			user.setUserName(userName);
+			user.setPassword(password);
+			return user;
+		}
+		return null;
 	}
 }

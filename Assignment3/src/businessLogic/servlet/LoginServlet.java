@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import businessLogic.LoginDAO;
 import businessLogic.beans.User;
 import businessLogic.utils.MyUtils;
+import cqrs.readModel.LoginCheckQueryResult;
+import cqrs.readModel.UserQueryService;
 
 @WebServlet(urlPatterns = { "/login" })
 public class LoginServlet extends HttpServlet {
@@ -52,8 +53,10 @@ public class LoginServlet extends HttpServlet {
 		User user =new User();
 		user.setUserName(userName);
 		user.setPassword(password);
-		LoginDAO loginDao=new LoginDAO();
-		String validate=loginDao.LoginCheck(user);
+		
+		LoginCheckQueryResult result=UserQueryService.loginCheck(userName, password);
+		String validate=result.getLoginRole();
+
 		if(validate.equals("Admin_Role"))
 		{
 			System.out.println("Admin's Home");

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import businessLogic.beans.Item;
 import businessLogic.beans.Product;
-import businessLogic.utils.DBUtils;
+import cqrs.readModel.ProductQueryService;
 
 @WebServlet("/cart")
 public class CartServlet extends HttpServlet {
@@ -75,9 +75,9 @@ public class CartServlet extends HttpServlet {
 	protected void doGet_Buy(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 		HttpSession session = request.getSession();
+		Product product=ProductQueryService.findProduct(request.getParameter("code"));
 		if (session.getAttribute("cart") == null) {
 			List<Item> cart = new ArrayList<Item>();
-			Product product=DBUtils.findProduct(request.getParameter("code"));
 			if(product.isAvailable()==true) {
 				cart.add(new Item(product, 1));
 				session.setAttribute("cart", cart);
@@ -88,7 +88,6 @@ public class CartServlet extends HttpServlet {
 		} else {
 			@SuppressWarnings("unchecked")
 			List<Item> cart = (List<Item>) session.getAttribute("cart");
-			Product product=DBUtils.findProduct(request.getParameter("code"));
 			if(product.isAvailable()==true) {
 				int index = isExisting(request.getParameter("code"), cart);
 				if (index == -1) {	

@@ -1,50 +1,68 @@
 package cqrs.commandHandlers;
 
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import businessLogic.RegisterDAO;
 import businessLogic.beans.User;
 import cqrs.writeModel.ICommand;
 import cqrs.writeModel.UserRegisterCommand;
+import dataAccess.connection.ConnectionFactory;
 
 public class RegisterUserHandler implements IHandler{
 
+	private String type;
+
+	public RegisterUserHandler() {
+		this.type="registerUser";
+	}
+
+
 	@Override
-	public void handle(ICommand registerUserCommand) {
+	public String handle(ICommand registerUserCommand) {
 		User user=((UserRegisterCommand) registerUserCommand).getUser();
-		RegisterDAO registerDao=new RegisterDAO();
-		String userRegistered=registerDao.registerUser(user);
-		HttpServletRequest request=((UserRegisterCommand) registerUserCommand).getRequest();
-		HttpServletResponse response=((UserRegisterCommand) registerUserCommand).getResponse();
-		if(userRegistered.equals("SUCCESS"))   //On success, you can display a message to user on Home page
+		String firstName = user.getFirst_name();
+		String lastName = user.getLast_name();
+		String email = user.getEmail();
+		String userName = user.getUserName();
+		String password = user.getPassword();
+		String address = user.getAddress();
+		String number = user.getNumber();
+
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+
+		try
 		{
-			try {
-				request.getRequestDispatcher("/Welcome.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ConnectionFactory.getInstance();
+			con = ConnectionFactory.getConnection();
+			String query = "insert into user (first_name,last_name,email,username,password,address,number,role) values (?,?,?,?,?,?,?,?)"; 
+			preparedStatement = con.prepareStatement(query); 
+			preparedStatement.setString(1, firstName);
+			preparedStatement.setString(2, lastName);
+			preparedStatement.setString(3, email);
+			preparedStatement.setString(4, userName);
+			preparedStatement.setString(5, password);
+			preparedStatement.setString(6, address);
+			preparedStatement.setString(7, number);
+			preparedStatement.setString(8, "User");
+
+			int i= preparedStatement.executeUpdate();
+
+			if (i!=0)  //Just to ensure data has been inserted into the database
+				return "SUCCESS"; 
 		}
-		else   //On Failure, display a meaningful message to the User.
+		catch(SQLException e)
 		{
-			request.setAttribute("errMessage", userRegistered);
-			try {
-				request.getRequestDispatcher("/register1.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			e.printStackTrace();
 		}
+
+		return "Oops.. Something went wrong there..!";  // On failure, send a message from here.
+	}
+
+
+	public String getType() {
+		return type;
 	}
 
 }

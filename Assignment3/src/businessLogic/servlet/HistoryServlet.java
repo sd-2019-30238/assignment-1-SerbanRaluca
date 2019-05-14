@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import businessLogic.beans.Observer;
 import businessLogic.beans.User;
-import businessLogic.utils.DBUtils;
 import businessLogic.utils.MyUtils;
+import cqrs.readModel.OrderQueryService;
 
 /**
  * Servlet implementation class HistoryServlet
@@ -35,7 +34,7 @@ public class HistoryServlet extends HttpServlet {
 		// Check User has logged on
 		User user = MyUtils.getLoginedUser(session);
 		try {
-			request.setAttribute("orders", DBUtils.queryOrder(user.getUserName()));
+			request.setAttribute("orders", OrderQueryService.queryOrder(user.getUserName()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

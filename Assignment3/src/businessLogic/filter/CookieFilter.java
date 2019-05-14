@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import businessLogic.beans.User;
-import businessLogic.utils.DBUtils;
 import businessLogic.utils.MyUtils;
+import cqrs.readModel.UserQueryService;
  
 @WebFilter(filterName = "cookieFilter", urlPatterns = { "/*" })
 public class CookieFilter implements Filter {
@@ -56,7 +56,7 @@ public class CookieFilter implements Filter {
         if (checked == null && conn != null) {
             String userName = MyUtils.getUserNameInCookie(req);
             try {
-                User user = DBUtils.findUser(conn, userName);
+                User user = UserQueryService.findUser(conn, userName);
                 MyUtils.storeLoginedUser(session, user);
             } catch (SQLException e) {
                 e.printStackTrace();

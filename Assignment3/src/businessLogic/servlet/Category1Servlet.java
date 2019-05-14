@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.utils.DBUtils;
+import cqrs.readModel.ProductQueryService;
 
 /**
  * Servlet implementation class Category1Servlet
@@ -31,7 +31,7 @@ public class Category1Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			request.setAttribute("products", DBUtils.queryCategory("Sofas and armchairs"));
+			request.setAttribute("products", ProductQueryService.queryCategory("Sofas and armchairs"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

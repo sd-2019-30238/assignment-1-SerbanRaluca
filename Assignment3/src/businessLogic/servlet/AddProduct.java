@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.ProductDAO;
+import businessLogic.Mediator;
 import businessLogic.beans.Product;
+import cqrs.writeModel.ProductWriteModel;
 
 /**
  * Servlet implementation class AddProduct
@@ -49,15 +50,15 @@ public class AddProduct extends HttpServlet {
 
 
 		Product product=new Product();
-
-		ProductDAO productDao=new ProductDAO();
 		product.setCode(code);
 		product.setCategory(category);
 		product.setName(name);
 		product.setPhoto(photo);
 		product.setPrice(Double.parseDouble(price));
 		product.setQuantity(Integer.parseInt(quantity));
-		String msg=productDao.insertProduct(product);
+		Mediator mediator=new Mediator();
+		ProductWriteModel writeModel=new ProductWriteModel(mediator);
+		String msg=writeModel.addProduct(product);
 
 		if(msg.equals("SUCCESS"))  
 		{
