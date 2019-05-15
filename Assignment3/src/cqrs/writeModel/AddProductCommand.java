@@ -4,7 +4,7 @@ import businessLogic.beans.Product;
 
 public class AddProductCommand implements ICommand {
 	
-	private Product productinfo;
+	private Product productInfo;
 	private String type;
 	
 	public AddProductCommand(Product product) {
@@ -13,11 +13,11 @@ public class AddProductCommand implements ICommand {
 	}
 
 	public Product getProductInfo() {
-		return productinfo;
+		return productInfo;
 	}
 
-	public void setProductinfo(Product productinfo) {
-		this.productinfo = productinfo;
+	public void setProductinfo(Product productInfo) {
+		this.productInfo = productInfo;
 	}
 
 	public String getType() {

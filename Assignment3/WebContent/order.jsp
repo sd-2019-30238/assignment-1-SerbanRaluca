@@ -9,6 +9,7 @@
 <body bgcolor=#99FF99>
 	<H1>Place Order</H1>
 	Your order has been placed. Thank you for shopping.
+	<%=(request.getAttribute("total")==null) ? "Sorry,no discount!Total must be higher than 1000!Total="+request.getAttribute("discountTotal"): "Total after discount:"+request.getAttribute("discountTotal")%>
 
 	<FORM method=get action="product">
 		<INPUT type=submit value="Resume Shopping">

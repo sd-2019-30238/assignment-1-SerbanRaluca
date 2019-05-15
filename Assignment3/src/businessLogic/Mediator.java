@@ -2,7 +2,7 @@ package businessLogic;
 import java.util.ArrayList;
 import java.util.List;
 
-import cqrs.commandHandlers.*;
+import cqrs.commandHandlers.IHandler;
 import cqrs.writeModel.ICommand;
 public class Mediator {
 

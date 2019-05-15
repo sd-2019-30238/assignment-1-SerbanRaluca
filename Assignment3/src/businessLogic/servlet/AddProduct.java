@@ -19,13 +19,16 @@ import cqrs.writeModel.ProductWriteModel;
 @WebServlet("/add")
 public class AddProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private ProductWriteModel writeModel;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public AddProduct() {
 		super();
-		// TODO Auto-generated constructor stub
+		Mediator mediator=new Mediator();
+		this.writeModel=new ProductWriteModel(mediator);
 	}
 
 	/**
@@ -56,8 +59,6 @@ public class AddProduct extends HttpServlet {
 		product.setPhoto(photo);
 		product.setPrice(Double.parseDouble(price));
 		product.setQuantity(Integer.parseInt(quantity));
-		Mediator mediator=new Mediator();
-		ProductWriteModel writeModel=new ProductWriteModel(mediator);
 		String msg=writeModel.addProduct(product);
 
 		if(msg.equals("SUCCESS"))  

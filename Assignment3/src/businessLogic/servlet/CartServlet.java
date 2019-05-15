@@ -105,7 +105,6 @@ public class CartServlet extends HttpServlet {
 		
 	}
 
-
 	private int isExisting(String code, List<Item> cart) {
 		for (int i = 0; i < cart.size(); i++) {
 			if (cart.get(i).getProduct().getCode().equalsIgnoreCase(code)) {

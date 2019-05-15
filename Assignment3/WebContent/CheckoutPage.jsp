@@ -67,7 +67,9 @@
 			<td>${total }</td>
 		</tr>
 	</table>
-	<form action="order" method="post">
+	
+	
+	<form name="form" action="order" method="post" onsubmit="return validate()">
 		<h1 align="center">Checkout</h1>
 		First name: <input type="text" name="firstname"><br> Last
 		name: <input type="text" name="lastname"><br> Address: <input

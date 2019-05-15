@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="D:/Raluca/facultate/an 3/Documents/semestrul2/PS/commons-math3-3.6.1.jar"/>
 	<classpathentry kind="lib" path="D:/Raluca/facultate/an 3/Documents/semestrul2/PS/jsp-api-2.2.1-b01.jar"/>
 	<classpathentry kind="lib" path="D:/Raluca/facultate/an 3/Documents/semestrul2/PS/mysql-connector-java-5.1.33.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

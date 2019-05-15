@@ -18,13 +18,16 @@ import cqrs.writeModel.OrderWriteModel;
 @WebServlet("/feedback")
 public class FeedbackServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private OrderWriteModel writeModel;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public FeedbackServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+		Mediator mediator=new Mediator();
+		this.writeModel=new OrderWriteModel(mediator);
 	}
 
 
@@ -59,9 +62,6 @@ public class FeedbackServlet extends HttpServlet {
 	 */
 	protected void doGet_feedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String feedback=request.getParameter("feedback");
-		System.out.println(feedback+"da");
-		Mediator mediator=new Mediator();
-		OrderWriteModel writeModel=new OrderWriteModel(mediator);
 		String msg=writeModel.updateFeedback(feedback,request.getParameter("id"));
 		if(msg.equalsIgnoreCase("SUCCESS")) {
 			response.sendRedirect("thanks.jsp");
@@ -69,7 +69,6 @@ public class FeedbackServlet extends HttpServlet {
 			request.setAttribute("errMsg", msg);
 			response.sendRedirect("feedback");
 		}
-
 	}
 
 	/**

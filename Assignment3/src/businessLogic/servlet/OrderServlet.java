@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import businessLogic.DiscountShoppingCart;
 import businessLogic.Mediator;
+import businessLogic.ShoppingCart;
+import businessLogic.ShoppingCartDecorator;
+import businessLogic.ShoppingCartImpl;
 import businessLogic.beans.Item;
 import businessLogic.beans.Order;
 import businessLogic.utils.MyUtils;
@@ -94,8 +98,8 @@ public class OrderServlet extends HttpServlet {
 		}
 
 		Order order=new Order();
-	    UUID id = UUID.randomUUID();
-	    order.setId(id);
+		UUID id = UUID.randomUUID();
+		order.setId(id);
 		order.setAddress(address);
 		order.setCity(city);
 		order.setCountry(country);
@@ -106,26 +110,25 @@ public class OrderServlet extends HttpServlet {
 		Mediator mediator=new Mediator();
 		ProductWriteModel productModel=new ProductWriteModel(mediator);
 		OrderWriteModel orderModel=new OrderWriteModel(mediator);
-	
-        String m="";
+
 		HttpSession session=request.getSession();
 		order.setUsername(MyUtils.getLoginedUser(session).getUserName());
-		@SuppressWarnings("unused")
+
+		//calculate total
 		List<Item> cart= (List<Item>) session.getAttribute("cart");
-		for(int i=0;i<cart.size();i++) {
-			Double price=cart.get(i).getProduct().getPrice();
-			int quantity=cart.get(i).getQuantity();
-			total+=price*quantity;
-			String code=cart.get(i).getProduct().getCode();
-			int q=cart.get(i).getProduct().getQuantity();
-			int newQuantity=q-quantity;
-			m=productModel.updateProduct(code, newQuantity);
+		ShoppingCart shoppingCart=new ShoppingCartImpl(cart,productModel);
+		if(shoppingCart.getTotal()>1000) {
+			request.setAttribute("total",shoppingCart.getTotal());
 		}
+		ShoppingCartDecorator cartDecorator=new DiscountShoppingCart(shoppingCart);
+		total=cartDecorator.getTotal();
+		request.setAttribute("discountTotal", total);
+
 		session.removeAttribute("cart");
 		order.setTotal(total);
 		String msg=orderModel.placeOrder(order);
 
-		if(msg.equals("SUCCESS") && m.equals("SUCCESS"))  
+		if(msg.equals("SUCCESS"))  
 		{
 			request.getRequestDispatcher("/order.jsp").forward(request, response);
 		}
